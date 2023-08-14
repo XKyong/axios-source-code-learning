@@ -10,6 +10,9 @@ let dirs;
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+console.log(__filename)
+console.log(__dirname)
+
 function listDirs(root) {
   const files = fs.readdirSync(root);
   const dirs = [];
@@ -128,7 +131,11 @@ server = http.createServer(function (req, res) {
   // Process server request
   else if (new RegExp('(' + dirs.join('|') + ')\/server').test(url)) {
     if (fs.existsSync(path.join(__dirname, url + '.js'))) {
-      require(path.join(__dirname, url + '.js'))(req, res);
+      import(path.join(__dirname, url + '.js')).then(result => {
+        result.default(req, res)
+      });
+      // package.json 设置 type 为 module，因此 require 在这里用不了！
+      // require(path.join(__dirname, url + '.js'))(req, res);
     } else {
       send404(res);
     }
