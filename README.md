@@ -12,7 +12,6 @@
 </p>
 
 <div align="center">
-
 [![npm version](https://img.shields.io/npm/v/axios.svg?style=flat-square)](https://www.npmjs.org/package/axios)
 [![CDNJS](https://img.shields.io/cdnjs/v/axios.svg?style=flat-square)](https://cdnjs.com/libraries/axios)
 [![Build status](https://img.shields.io/github/actions/workflow/status/axios/axios/ci.yml?branch=v1.x&label=CI&logo=github&style=flat-square)](https://github.com/axios/axios/actions/workflows/ci.yml)
@@ -27,8 +26,53 @@
 
 
 
+## 调试
 
-</div>
+### 浏览器环境调试
+
+基于 `sandbox/client.html` 的调试：
+
+- 执行 `npm install` 命令安装完依赖后，执行 `npm start` 命令；
+- 然后浏览器打开 http://localhost:3000 ；
+- 打开浏览器devtool，在 `source` 面板中找到 `lib` 文件夹，然后根据需求进行源码调试；
+
+基于 `examples` 文件夹示例的调试：
+
+- 执行 `npm install` 命令安装完依赖后，执行 `npm run examples` 命令；
+- 然后浏览器打开 http://localhost:3000 ，选择需要进行调试的url；
+- 打开浏览器devtool，在 `source` 面板中找到 `lib` 文件夹，然后根据需求进行源码调试；
+
+
+
+### nodejs环境调试
+
+根目录新建 `.vscode/launch.json` 文件，然后键入如下内容：
+
+```json
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Program",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}\\sandbox\\client.js"
+    }
+  ]
+}
+```
+
+然后在该文件 `client.js` 中，根据需求，对应位置打上断点即可。
+
+
+
+
 
 ## Table of Contents
 
